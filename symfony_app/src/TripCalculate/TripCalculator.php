@@ -15,7 +15,7 @@ class TripCalculator
         return $interval->y;
     }
 
-    public function calculateCost(array $data): JsonResponse
+    public function calculateCost(array $data)
     {
         if (!isset($data['price']) || !isset($data['birthDate'])) {
             throw new BadRequestHttpException('Missing required fields');
@@ -23,12 +23,12 @@ class TripCalculator
 
         $price = floatval($data['price']);
         if($price<10000){
-            return new JsonResponse([
+            return [
                 'originalPrice' => $price,
                 'birthDiscount' => '0',
                 'earlyBookingDiscount' => '0',
                 'finalPrice' => $price
-            ]);
+            ];
         } else {
             $birthDate = new DateTime($data['birthDate']);
             if (!isset($data['birthDate'])){
@@ -43,18 +43,19 @@ class TripCalculator
             }
             if(!isset($data['payDate'])){
                 $finalPrice = $price;
+                $earlyBookingDiscount = 0;
             } else {
                 $payDate = new DateTime($data['payDate']);
                 $earlyBookingDiscount = $this->calculateEarlyBookingDiscount($startDate, $payDate, $price);
                 $finalPrice = $price - $earlyBookingDiscount;
             }
 
-            return new JsonResponse([
+            return [
                 'originalPrice' => $price,
                 'childrenDiscount' => $discount,
                 'earlyBookingDiscount' => $earlyBookingDiscount,
                 'finalPrice' => $finalPrice
-            ]);
+            ];
         }
     }
 
