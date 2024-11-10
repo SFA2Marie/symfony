@@ -49,7 +49,6 @@ class TripCalculator
                 $finalPrice = $price - $earlyBookingDiscount;
             }
 
-
             return new JsonResponse([
                 'originalPrice' => $price,
                 'childrenDiscount' => $discount,
@@ -76,7 +75,6 @@ class TripCalculator
         $currentMonth = (int)$payDate->format('m');
         $currentDay = (int)$startDate->format('d');
 
-
         $startDay = (int)$startDate->format('d');
         $startYear = (int)$startDate->format('Y');
         $startMonth = (int)$startDate->format('m');
@@ -88,11 +86,9 @@ class TripCalculator
 
     private  function calculateDiscount(int $year, int $month, $startYear, $startMonth, $day, $startDay, $price): float
     {
-
         $discount = $this->getDiscount($startYear, $startMonth, $startDay, $year, $month, $day);
         $discoun_in_price = $price*$discount;
         return $discoun_in_price;
-
     }
 
     private  function getDiscount(int $year, int $month, int $day, $payYear, $payMonth, $payDay): int
@@ -115,7 +111,6 @@ class TripCalculator
                     return 0.05;
                 }elseif ($payMonth == 1 && $payYear === date('Y+1')){
                     return 0.03;
-
                 }
             } elseif ($month == 1 && $day <= 14) {
                 if($payMonth <= 3 && $payYear === date('Y')){
@@ -124,7 +119,8 @@ class TripCalculator
                     return 0.05;
                 }elseif ($payMonth == 5 && $payYear === date('Y')){
                     return 0.03;
-                }            }
+                }
+            }
             elseif ($month >= 1 && $day >= 15) {
                 if($payMonth <= 8 && $payYear === date('Y')){
                     return 0.07;
