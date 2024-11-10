@@ -3,7 +3,6 @@
 namespace App\TripCalculate;
 
 use DateTime;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class TripCalculator
