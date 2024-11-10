@@ -39,6 +39,8 @@ class TripCalculator
             if($yearOfUser<18){
                 $discount = $this->calculateChildrenDiscountPrice($yearOfUser, $price);
                 $price -= $discount;
+            } else {
+                $discount = 0;
             }
             if(!isset($data['payDate'])){
                 $finalPrice = $price;
